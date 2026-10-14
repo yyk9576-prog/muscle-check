@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>근골격계 자가점검</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f5f7fa;--card:#fff;--tx:#1d2733;--sub:#5d6b7a;--line:#d5dce4;--body:#e8edf2;--pri:#2563eb;--g:#2e9d57;--o:#f08a1c;--r:#d93636}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171d;--card:#1b232c;--tx:#e8edf2;--sub:#9aa8b6;--line:#33404d;--body:#2a3540;--pri:#6b9bff}}
+:root[data-theme="dark"]{--bg:#12171d;--card:#1b232c;--tx:#e8edf2;--sub:#9aa8b6;--line:#33404d;--body:#2a3540;--pri:#6b9bff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.5;transition:background .3s}
+main{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:4px 0 2px}h2{font-size:16px;margin:0 0 8px}
+.sub{color:var(--sub);font-size:13px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.views{display:flex;gap:8px;justify-content:center}
+.views figure{margin:0;flex:1;text-align:center;font-size:12px;color:var(--sub)}
+svg{width:100%;max-width:210px;height:auto}
+.b{fill:var(--body);stroke:var(--line);stroke-width:1}
+.bl{stroke:var(--body);stroke-linecap:round;fill:none}
+.z{fill:transparent;stroke:var(--pri);stroke-width:1.2;stroke-dasharray:3 2;cursor:pointer}
+.z.on{fill:var(--o);fill-opacity:.85;stroke:var(--o);stroke-dasharray:none}
+.zr{stroke:#2563eb}.zl{stroke:#9333ea}
+.lbl{font-size:9px;font-weight:700}
+.zt{font-size:8px;font-weight:700;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.zt.on{fill:#fff}
+.hint{font-size:13px;background:var(--bg);border-radius:10px;padding:8px 10px;margin:0 0 10px}
+.hint b.r{color:#2563eb}.hint b.l{color:#9333ea}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:28px}
+.chip{background:var(--o);color:#fff;border-radius:99px;padding:2px 10px;font-size:13px}
+.opt{display:flex;gap:6px;flex-wrap:wrap}
+.opt label{flex:1;min-width:90px}
+.opt input{position:absolute;opacity:0}
+.opt span{display:block;text-align:center;padding:9px 6px;border:1px solid var(--line);border-radius:10px;font-size:14px;cursor:pointer}
+.opt input:checked+span{background:var(--pri);color:#fff;border-color:var(--pri)}
+input[type=range]{width:100%}
+.nrs{font-size:28px;font-weight:700;text-align:center}
+button.main{width:100%;padding:14px;font-size:16px;font-weight:700;border:0;border-radius:12px;background:var(--pri);color:#fff;cursor:pointer}
+.err{color:var(--r);font-size:13px;min-height:18px;margin:6px 0}
+#res{display:none;min-height:100vh;color:#fff;padding:24px 18px}
+#res .in{max-width:560px;margin:0 auto}
+#res .dot{font-size:56px;line-height:1}
+#res h1{font-size:26px}
+#res .box{background:rgba(255,255,255,.18);border-radius:14px;padding:14px;margin:12px 0}
+#res ul{margin:6px 0 0;padding-left:20px}
+#res button{background:#fff;color:#222;border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;margin-top:8px}
+.sm{font-size:12px;opacity:.85}
+</style>
+</head>
+<body>
+<main id="step1">
+<h1>🩺 근골격계 자가점검</h1>
+<p class="sub">매일 근무 시작 전 1분 점검 · 1단계</p>
+<div class="card">
+<h2>① 불편한 부위를 눌러 선택하세요 <span class="sub">(여러 곳 가능)</span></h2>
+<p class="hint">🔵 <b class="r">오른쪽(오)</b> / 🟣 <b class="l">왼쪽(왼)</b> — <b>내 몸 기준</b>입니다. 앞면은 거울을 보듯 화면 왼쪽이 <b>내 오른쪽</b>, 뒷면은 화면 왼쪽이 <b>내 왼쪽</b>이에요.</p>
+<div class="views">
+<figure><svg viewBox="0 0 120 245" id="sf"></svg>앞면</figure>
+<figure><svg viewBox="0 0 120 245" id="sb"></svg>뒷면</figure>
+</div>
+<div class="chips" id="chips"><span class="sub">선택 없음 (통증 없으면 그대로 두세요)</span></div>
+</div>
+<div class="card">
+<h2>② 통증 정도 (NRS 0~10)</h2>
+<div class="nrs"><span id="nv">0</span><span class="sub"> / 10</span></div>
+<input type="range" id="nrs" min="0" max="10" value="0">
+<div class="sub" style="display:flex;justify-content:space-between"><span>0 통증 없음</span><span>10 참을 수 없음</span></div>
+</div>
+<div class="card">
+<h2>③ 저림(손발 저림·감각 이상)이 있나요?</h2>
+<div class="opt"><label><input type="radio" name="num" value="0" checked><span>없음</span></label><label><input type="radio" name="num" value="1"><span>있음</span></label></div>
+</div>
+<div class="card">
+<h2>④ 전날보다 증상이 어떤가요?</h2>
+<div class="opt">
+<label><input type="radio" name="chg" value="better"><span>좋아짐</span></label>
+<label><input type="radio" name="chg" value="same" checked><span>비슷함</span></label>
+<label><input type="radio" name="chg" value="worse"><span>나빠짐</span></label>
+</div>
+</div>
+<div class="err" id="err"></div>
+<button class="main" id="go">결과 보기</button>
+</main>
+
+<section id="res"><div class="in">
+<div class="dot" id="rdot"></div>
+<h1 id="rtitle"></h1>
+<div id="rsum" class="sm"></div>
+<div class="box" id="rbody"></div>
+<div class="box" id="rvisit" style="display:none"></div>
+<button id="again">다시 점검하기</button>
+<p class="sm">※ 시범 화면입니다. 결과는 이 기기에만 저장되며 건강관리실 자동 전달은 사내 시스템 연동 시 구현됩니다.</p>
+</div></section>
+
+<script>
+var sel=new Set();
+var Z={f:[["목",60,48,9],["오른쪽 어깨",36,63,9],["왼쪽 어깨",84,63,9],["오른쪽 팔꿈치",29,102,8],["왼쪽 팔꿈치",91,102,8],["오른쪽 손목",23,141,8],["왼쪽 손목",97,141,8],["오른쪽 무릎",48,200,9],["왼쪽 무릎",72,200,9]],
+b:[["목",60,48,9],["왼쪽 어깨",36,63,9],["오른쪽 어깨",84,63,9],["등(상부)",60,88,12],["허리",60,125,12],["엉덩이",60,157,10],["왼쪽 팔꿈치",29,102,8],["오른쪽 팔꿈치",91,102,8],["왼쪽 손목",23,141,8],["오른쪽 손목",97,141,8]]};
+var NS="http://www.w3.org/2000/svg";
+function mk(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+function draw(id,v){
+ var s=document.getElementById(id);
+ mk("circle",{cx:60,cy:22,r:14,class:"b"},s);
+ mk("rect",{x:38,y:42,width:44,height:112,rx:16,class:"b"},s);
+ var LB=v==="f"?["내 오른쪽","내 왼쪽"]:["내 왼쪽","내 오른쪽"];
+ [[2,"start",LB[0]],[118,"end",LB[1]]].forEach(function(l){var t=mk("text",{x:l[0],y:12,"text-anchor":l[1],class:"lbl",fill:l[2]==="내 오른쪽"?"#2563eb":"#9333ea"},s);t.textContent=l[2]});
+ [[36,60,22,145],[84,60,98,145],[50,150,47,232],[70,150,73,232]].forEach(function(l){mk("line",{x1:l[0],y1:l[1],x2:l[2],y2:l[3],class:"bl","stroke-width":14},s)});
+ Z[v].forEach(function(z){
+  var side=z[0].indexOf("오른쪽")===0?"zr":z[0].indexOf("왼쪽")===0?"zl":"";
+  var c=mk("circle",{cx:z[1],cy:z[2],r:z[3],class:"z "+side,"data-n":z[0]},s);
+  c.addEventListener("click",function(){sel.has(z[0])?sel.delete(z[0]):sel.add(z[0]);paint()});
+  if(side){var t=mk("text",{x:z[1],y:z[2],class:"zt","data-n":z[0],fill:side==="zr"?"#2563eb":"#9333ea"},s);t.textContent=side==="zr"?"오":"왼"}
+ });
+}
+function paint(){
+ document.querySelectorAll(".z,.zt").forEach(function(c){c.classList.toggle("on",sel.has(c.dataset.n))});
+ var ch=document.getElementById("chips");
+ ch.innerHTML=sel.size?"":'<span class="sub">선택 없음 (통증 없으면 그대로 두세요)</span>';
+ sel.forEach(function(n){var s=document.createElement("span");s.className="chip";s.textContent=n;ch.appendChild(s)});
+}
+draw("sf","f");draw("sb","b");
+var nrs=document.getElementById("nrs");
+nrs.oninput=function(){document.getElementById("nv").textContent=nrs.value};
+function val(n){return document.querySelector('input[name='+n+']:checked').value}
+
+var TIPS={"목":["턱을 가볍게 당기고 5초 유지 ×5회","고개를 옆으로 천천히 기울여 15초씩 좌우 스트레칭"],
+"어깨":["어깨를 뒤로 크게 10회 돌리기","한쪽 팔을 가슴 앞으로 당겨 15초씩 스트레칭"],
+"등":["양손을 깍지 끼고 앞으로 뻗어 등을 둥글게 15초","가슴을 펴고 날개뼈를 모으는 동작 ×10회"],
+"허리":["의자에 앉아 상체를 천천히 숙여 15초 유지","서서 손을 허리에 대고 뒤로 젖히기 ×5회(통증 없는 범위)"],
+"엉덩이":["앉아서 한쪽 발목을 반대 무릎에 올리고 상체 숙이기 15초","서서 무릎을 가슴 쪽으로 당기기 15초씩"],
+"팔꿈치":["팔을 뻗고 손목을 몸쪽으로 당겨 15초 스트레칭","반복 작업 사이 1~2분 휴식"],
+"손목":["손바닥을 펴고 반대 손으로 손가락을 당겨 15초","주먹 쥐었다 펴기 ×10회, 손목 돌리기"],
+"무릎":["의자에 앉아 다리를 쭉 펴고 5초 유지 ×10회","장시간 쪼그려 앉기·서 있기 피하기"]};
+function tipsFor(){
+ var out=[],seen={};
+ sel.forEach(function(n){for(var k in TIPS){if(n.indexOf(k)>-1&&!seen[k]){seen[k]=1;out.push("<b>"+k+"</b>"+TIPS[k].map(function(t){return"<li>"+t+"</li>"}).join(""))}}});
+ return out.length?"<ul style='list-style:none;padding:0'>"+out.map(function(o){return"<div style='margin-bottom:8px'>"+o.replace("<li>","<ul><li>")+"</ul></div>"}).join("")+"</ul>":"";
+}
+function ds(off){var d=new Date();d.setDate(d.getDate()-off);return d.toLocaleDateString("sv")}
+function getLog(){try{return JSON.parse(localStorage.getItem("msk-log")||"{}")}catch(e){return{}}}
+function setLog(l){try{localStorage.setItem("msk-log",JSON.stringify(l))}catch(e){}}
+
+document.getElementById("go").onclick=function(){
+ var n=+nrs.value,num=val("num")==="1",chg=val("chg"),err=document.getElementById("err");
+ if(n>0&&!sel.size){err.textContent="통증이 있다면 아픈 부위를 한 곳 이상 선택해 주세요.";return}
+ if(n===0&&sel.size){err.textContent="부위를 선택했다면 통증 정도(1점 이상)를 입력해 주세요.";return}
+ err.textContent="";
+ var lv="g";
+ if(n>0)lv="o";
+ if(n>=7||(num&&n>=4)||(chg==="worse"&&n>=5))lv="r";
+ if(n===0&&num)lv="o";
+ var log=getLog();log[ds(0)]=lv;setLog(log);
+ var streak=lv==="o"&&[1,2].every(function(i){return log[ds(i)]==="o"||log[ds(i)]==="r"});
+ show(lv,n,num,chg,streak);
+};
+function show(lv,n,num,chg,streak){
+ var C={g:["var(--g)","🟢","초록 단계 · 양호"],o:["var(--o)","🟠","주황 단계 · 주의"],r:["var(--r)","🔴","빨강 단계 · 위험"]}[lv];
+ var r=document.getElementById("res");r.style.background=C[0];
+ document.getElementById("rdot").textContent=C[1];
+ document.getElementById("rtitle").textContent=C[2];
+ var parts=[];if(sel.size)parts.push("부위: "+Array.from(sel).join(", "));
+ parts.push("통증 "+n+"/10","저림 "+(num?"있음":"없음"),"전날 대비 "+{better:"좋아짐",same:"비슷함",worse:"나빠짐"}[chg]);
+ document.getElementById("rsum").textContent=parts.join(" · ");
+ var h="";
+ if(lv==="g")h="<b>지금 상태를 유지하세요 👍</b><ul><li>1시간마다 1~2분 자세 바꾸기·스트레칭</li><li>작업대·의자 높이를 몸에 맞게 조절하기</li><li>무거운 물건은 몸 가까이 들고, 반복 동작은 중간중간 쉬기</li><li>충분한 수분 섭취와 수면</li></ul>";
+ else if(lv==="o")h="<b>가벼운 스트레칭과 자가관리를 해보세요</b>"+tipsFor()+"<ul><li>통증 부위의 반복 동작·무리한 힘 사용 줄이기</li><li>작업 중 자주 쉬고, 통증이 커지면 즉시 중단</li></ul>";
+ else h="<b>통증이 심하거나 주의가 필요한 증상입니다</b><ul><li>무리한 작업과 스트레칭은 하지 마세요</li><li>증상이 있는 부위를 쉬게 하고 관리자에게 알리세요</li></ul>";
+ document.getElementById("rbody").innerHTML=h;
+ var v=document.getElementById("rvisit");
+ if(lv==="r"||streak){v.style.display="block";v.innerHTML="🏥 <b>건강관리실 방문을 안내드립니다.</b><br>"+(lv==="r"?"빨강 단계입니다. 오늘 근무 전 산업간호사 상담을 받아주세요.":"주황 단계가 3일 연속 지속되고 있습니다. 산업간호사 상담을 받아주세요.")}
+ else v.style.display="none";
+ document.getElementById("step1").style.display="none";r.style.display="block";window.scrollTo(0,0);
+}
+document.getElementById("again").onclick=function(){
+ document.getElementById("res").style.display="none";document.getElementById("step1").style.display="block";
+ sel.clear();paint();nrs.value=0;document.getElementById("nv").textContent=0;
+ document.querySelector('input[name=num][value="0"]').checked=true;document.querySelector('input[name=chg][value=same]').checked=true;window.scrollTo(0,0);
+};
+</script>
+</body>
+</html>
